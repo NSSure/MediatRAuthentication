@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Linq;
 using System.Text;
 
 namespace AttributeInjection
@@ -28,6 +30,11 @@ namespace AttributeInjection
 
             services.AddMediatR(typeof(Startup));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RestrictedBehavior<,>));
+
+            foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()))
+            {
+
+            }
 
             services.AddHttpContextAccessor();
 
